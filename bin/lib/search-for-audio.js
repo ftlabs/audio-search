@@ -17,6 +17,62 @@ function scan(options){
 
 }
 
-module.exports = function(options){
-	return scan(options);
+function searchForArticlesByTitle(title){
+	return scan({
+			FilterExpression : '(contains(#title, :title))',
+			ExpressionAttributeNames : {
+				'#title' : 'title'
+			},
+			ExpressionAttributeValues : {
+				':title' : title
+			}
+		})
+		.catch(err => {
+			debug(err);
+			return [];
+		})
+	;
+}
+
+function searchForArticleAfterTime(unixTime){
+
+	return scan({
+			FilterExpression : `#absorb > :time`,
+			ExpressionAttributeNames : {
+				'#absorb' : 'absorb_time'
+			},
+			ExpressionAttributeValues : {
+				':time' : unixTime
+			}
+		})
+		.catch(err => {
+			debug(err);
+			return [];
+		})
+	;
+
+}
+
+function searchForArticleBeforeTime(unixTime){
+	return scan({
+			FilterExpression : `#absorb < :time`,
+			ExpressionAttributeNames : {
+				'#absorb' : 'absorb_time'
+			},
+			ExpressionAttributeValues : {
+				':time' : unixTime
+			}
+		})
+		.catch(err => {
+			debug(err);
+			return [];
+		})
+	;
+
+}
+
+module.exports = {
+	title : searchForArticlesByTitle,
+	after : searchForArticleAfterTime,
+	before : searchForArticleBeforeTime
 };

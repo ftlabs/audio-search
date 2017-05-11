@@ -13,17 +13,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/today', (req, res, next) => {
 
-	search({
-			FilterExpression : `#absorb > :time`,
-			ExpressionAttributeNames : {
-				'#absorb' : 'absorb_time'
-			},
-			ExpressionAttributeValues : {
-				':time' : (Date.now() / 1000 | 0) - (ONE_DAY * 2)
-			}
-		})
+	search.after((Date.now() / 1000 | 0) - (ONE_DAY * 2))
 		.then(items => {
-
+			debug(items);
 			const information = items.map(item => {
 
 				return getInfoForItem(item.uuid)
@@ -53,6 +45,16 @@ router.get('/today', (req, res, next) => {
 		})
 	;
 
+});
+
+router.get('/headline/:containing', (req, res, next) => {
+
+	search.title(req.params.containing)
+		.then(data => {
+			debug(data);
+			res.json(data);
+		})
+	;
 
 });
 

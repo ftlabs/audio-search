@@ -1,11 +1,11 @@
 const debug = require('debug')('bin:lib:database');
 const database = require('./database');
 
-module.exports = function(options){
+function scan(options){
 
 	options.TableName = process.env.DATA_TABLE;
 
-	return database.scan(options, process.env.DATA_TABLE)
+	return database.scan(options)
 		.then(data => {
 			return data.Items;
 		})
@@ -15,4 +15,8 @@ module.exports = function(options){
 		})
 	;
 
+}
+
+module.exports = function(options){
+	return scan(options);
 };

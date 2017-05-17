@@ -7,11 +7,11 @@ const getInfoForItem = require('../bin/lib/get-information-for-item');
 
 const ONE_DAY = 86400;
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
 	res.end();
 });
 
-router.get('/today', (req, res, next) => {
+router.get('/today', (req, res) => {
 
 	search.after((Date.now() / 1000 | 0) - (ONE_DAY * 2))
 		.then(items => {
@@ -47,7 +47,25 @@ router.get('/today', (req, res, next) => {
 
 });
 
-router.get('/headline/:containing', (req, res, next) => {
+router.get('/latest', (req, res) => {
+
+	search.latest()
+		.then(data => {
+			res.json(data);
+		})
+		.catch(err => {
+			debug(err);
+			res.status(500);
+			res.json({
+				status : 'err',
+				message : 'An error occurred getting the latest audio articles.'
+			});
+		})
+	;
+
+});
+
+router.get('/headline/:containing', (req, res) => {
 
 	search.title(req.params.containing)
 		.then(data => {

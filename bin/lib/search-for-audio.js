@@ -71,8 +71,33 @@ function searchForArticleBeforeTime(unixTime){
 
 }
 
+function getMostRecentAudioArticles(MAX = 10){
+
+	const twoWeeksAgo = (new Date() / 1000 | 0) - (86400 * 14);
+
+	return searchForArticleAfterTime(twoWeeksAgo)
+		.then(data => {
+			debug(data);
+
+			data.sort( (a, b) => {
+
+				if(a['unix-pubdate'] >= b['unix-pubdate']){
+					return -1
+				} else {
+					return 1;
+				}
+
+			});
+
+			return data.slice(0, MAX);
+		})	
+	;
+
+}
+
 module.exports = {
 	title : searchForArticlesByTitle,
 	after : searchForArticleAfterTime,
-	before : searchForArticleBeforeTime
+	before : searchForArticleBeforeTime,
+	latest : getMostRecentAudioArticles
 };

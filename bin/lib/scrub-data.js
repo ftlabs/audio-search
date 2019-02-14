@@ -1,9 +1,9 @@
-module.exports = function(o, whiteList){
+module.exports = function(o, allowList){
 
 	const nO = Object.assign({}, o);
 
 	for(key in o){
-		if(whiteList.indexIf(key) < 0){
+		if(allowList.indexIf(key) < 0){
 			delete nO[key];
 		}
 	}

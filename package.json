@@ -8,13 +8,13 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "aws-sdk": "^2.437.0",
+    "aws-sdk": "^2.538.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "debug": "^2.6.6",
     "dotenv": "^4.0.0",
     "express": "^4.16.4",
-    "hbs": "^4.0.4",
+    "hbs": "^4.0.5",
     "morgan": "^1.9.1",
     "node-fetch": "^1.6.3",
     "serve-favicon": "~2.4.2",

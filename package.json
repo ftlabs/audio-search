@@ -18,7 +18,7 @@
     "morgan": "^1.9.1",
     "node-fetch": "^1.6.3",
     "serve-favicon": "~2.4.2",
-    "snyk": "^1.231.1"
+    "snyk": "^1.259.0"
   },
   "engines": {
     "node": "> 6.11.0 < 7.0.0"
